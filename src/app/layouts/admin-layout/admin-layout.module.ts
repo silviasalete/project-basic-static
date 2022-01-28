@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { HttpClientModule } from '@angular/common/http';
+import { QuestionComponent } from 'src/app/pages/question/question.component';
 
 @NgModule({
   imports: [
@@ -14,6 +15,6 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     ReactiveFormsModule,
   ],
-  declarations: [HomeComponent],
+  declarations: [HomeComponent, QuestionComponent],
 })
 export class AdminLayoutModule {}

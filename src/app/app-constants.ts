@@ -1,4 +1,5 @@
 import { HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 export class AppConstants {
   /**
    * Options
@@ -17,7 +18,7 @@ export class AppConstants {
    * Serve
    */
   public static get baseServe(): string {
-    return 'http://localhost:8080';
+    return environment.API;
   }
 
   /**
@@ -66,10 +67,6 @@ export class AppConstants {
     size: number,
     order: string
   ): string {
-    // const page: number = 0;
-    // const size: number = 4;
-    // const order: string = "desc";
-
     return (
       this.baseItem +
       `?page=${page}&size=${size}&sort=id,${order}&sort=title,asc`

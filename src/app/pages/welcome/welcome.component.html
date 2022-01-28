@@ -1,2 +1,31 @@
-<a [routerLink]="['/login']" class="btn btn-primary">Login</a>
-<a [routerLink]="['/register']" class="btn btn-secondary">Register</a>
+<!-- <a [routerLink]="['/login']" class="btn btn-primary">Login</a>
+<a [routerLink]="['/register']" class="btn btn-secondary">Register</a> -->
+<body class="text-center">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <header class="masthead mb-auto">
+    <div class="inner">
+      <h3 class="masthead-brand justify-content-center tx-blue-default">Teste de Personalidade</h3>
+      <!-- <nav class="nav nav-masthead justify-content-center">
+        <a class="nav-link active" href="#">Home</a>
+        <a class="nav-link" href="#">Features</a>
+        <a class="nav-link" href="#">Contact</a>
+      </nav> -->
+    </div>
+  </header>
+
+  <main role="main" class="inner cover">
+    <h1 class="cover-heading">Qual é a sua personalidade?</h1>
+    <p class="lead">Faça o Teste de Personalidade agora e descubra qual é a sua personalidade predominante.</p>
+    <p class="lead">
+      <a  [routerLink]="['/register']" class="btn btn-lg btn-outline-light">Cadastro</a>
+      <a [routerLink]="['/login']" class="btn btn-lg btn-outline-light">Login</a>
+    </p>
+  </main>
+
+  <footer class="mastfoot mt-auto">
+    <div class="inner">
+      <p class="tx-blue-default">Proprietário do site <a href="#">Pablo Horta</a>. Desenvolvido por <a href="https://www.linkedin.com/in/silvia-gomes-b14187a7/">Silvia Gomes</a>.</p>
+    </div>
+  </footer>
+</div>
+</body>

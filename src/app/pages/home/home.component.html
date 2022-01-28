@@ -1,52 +1,143 @@
-<div class="content">
-<div *ngIf="user.name">
-  <h2>Welcome {{user.name}}</h2>
-</div>
-  <button type="button" (click)="new()" class="btn btn-primary" >Novo</button>
-  <button type="button" (click)="logout()" class="btn btn-primary" >Logout</button>
 
-<div *ngIf="visibleForm" class="card-body">
-  <form [formGroup]="form" (ngSubmit)="saveOrUpdate()">
-    <div class="form-group">
-      <label for="title">Title</label>
-      <input type="text" formControlName="title"  class="form-control" id="title" placeholder="title">
-    </div>
-    <div class="form-group">
-      <label for="description">Description</label>
-      <input type="text" formControlName="description"  class="form-control" id="description" placeholder="description">
-    </div>
-    <input type="hidden" formControlName="id" name="id" class="form-control" id="id">
-    <button type="submit" class="btn btn-primary">Salvar</button>
-  </form>
-</div>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Title</th>
-        <th scope="col">Description</th>
-        <th scope="col">CreatedBy</th>
-        <th scope="col">CreatedIn</th>
-        <th scope="col">UpdatedBy</th>
-        <th scope="col">UpdatedIn</th>
-        <th scope="col">Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of itemList">
-        <th scope="row">{{item.id}}</th>
-        <td>{{item.title}}</td>
-        <td>{{item.description}}</td>
-        <td>{{item.createdBy.name}}</td>
-        <td>{{item.createdIn}}</td>
-        <td>{{item.updatedBy.name}}</td>
-        <td>{{item.updatedIn}}</td>
-        <td>
-          <button type="button" class="btn btn-info" (click)="update(item.id)">E</button>
-          <button type="button" class="btn btn-danger" (click)="delete(item.id)">X</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <header>
+    <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+      <a class="navbar-brand tx-blue-default" href="#">Olá, {{user.name}}!</a>
+      <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="../index.html">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/']"> Admin</a>
+          </li>
+          <li class="nav-item">
+            <button type="button" class="nav-link" (click)="logout()"> Sair</button>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main role="main">
+    <div class="container marketing">
+      <div class="row mt-3">
+        <div class="col-lg-2">
+        </div>
+        <div class="col-lg-8 text-right">
+          <form class="form-inline">
+            <div class="form-group mb-2">
+              <label for="staticEmail2">Empresa: </label>
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+              <input type="text" class="form-control" id="staticEmail2" placeholder="Loja ABC">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Pesquisar</button>
+          </form>
+        </div>
+        <div class="col-lg-2">
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-lg-2">
+        </div>
+        <div class="col-lg-8 text-center">      
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Empresa</th>
+                <th scope="col">Nome</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">E</th>
+                <th scope="col">C</th>
+                <th scope="col">P</th>
+                <th scope="col">A</th>      
+                <th scope="col">R</th>               
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Loja ABC</th>
+                  <td class="text-left">Amanda Batista</td>
+                <td class="text-left">amanda@email.com</td>
+                <td>25%</td>
+                <td>25%</td>
+                <td>40%</td>
+                <td>10%</td>
+                <td><i class="fa fa-check-circle  text-success"></i></td>
+              </tr>
+              <tr>
+                <th scope="row">Loja ABC</th>
+                <td class="text-left">Carlos Damião</td>
+                <td class="text-left">carlos.d123@email.com</td>
+                <td>25%</td>
+                <td>25%</td>
+                <td>25%</td>
+                <td>25%</td>
+                <td><i class="fa fa-check-circle  text-success"></i></td>
+              </tr>
+              <tr>
+                <th scope="row">Loja ABC</th>
+                <td class="text-left">Eduardo Fontes</td>
+                <td class="text-left">duduf@.com</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td><i class="fa fa-check-circle  text-secondary"></i></td>
+              </tr>
+              <tr>
+                <th scope="row">Loja ABC</th>
+                <td class="text-left">Gustavo Henrique</td>
+                <td class="text-left">gustavohrn@email.com</td>
+                <td>25%</td>
+                <td>50%</td>
+                <td>0%</td>
+                <td>25%</td>
+                <td><i class="fa fa-check-circle  text-success"></i></td>
+              </tr>
+              <tr>
+                <th scope="row">Loja ABC</th>
+                <td class="text-left">Igor Silva</td>
+                <td class="text-left">silva_igor@email.com</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td><i class="fa fa-check-circle  text-secondary"></i></td>
+              </tr>
+              <tr>
+                <th scope="row">Loja ABC</th>
+                <td class="text-left">João Augusto</td>
+                <td class="text-left">ja_test@email.com</td>
+                <td>10%</td>
+                <td>40%</td>
+                <td>20%</td>
+                <td>30%</td>
+                <td><i class="fa fa-check-circle  text-success"></i></td>
+              </tr>
+              <tr>
+                <th scope="row">Loja ABC</th>
+                <td class="text-left">Kellen</td>
+                <td class="text-left">kelzinha22@email.com</td>
+                <td>0%</td>
+                <td>25%</td>
+                <td>50%</td>
+                <td>25%</td>
+                <td><i class="fa fa-check-circle  text-success"></i></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-lg-2">
+        </div>
+      </div>
+    </div>
+    <!-- FOOTER -->
+    <footer class="container">
+      <!-- <p class="tx-blue-default">Proprietário do site <a href="#">Pablo Horta</a>. Desenvolvido por <a href="https://www.linkedin.com/in/silvia-gomes-b14187a7/">Silvia Gomes</a>.</p> -->
+    </footer>
+  </main>

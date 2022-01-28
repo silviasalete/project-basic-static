@@ -1,39 +1,34 @@
-<div class="container mt-3">
-  <div class="row mt-1">
-    <div class="col">
-      <div class="alert alert-primary alert-dismissible fade show" role="alert">
-        <strong>Exemplo de alerta</strong> o botão de fechar funciona.
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <div class="row mt-5">
-    <div class="col">
-      <h2>Register</h2>
-      <form role="form" [formGroup]="form" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" class="form-control" formControlName="name" id="name" aria-describedby="name">
-          <small id="name" class="form-text text-muted">We'll never share your name with anyone else.</small>
-        </div>
-        <div class="form-group">
-          <label for="email">Email address</label>
-          <input type="email" formControlName="email" class="form-control" id="email" aria-describedby="email">
-          <small id="email" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input formControlName="password" type="password" class="form-control" id="exampleInputPassword1">
-        </div>
-        <div class="form-group">
-          Já tem cadastro? Clique
-          <a [routerLink]="['/login']">aqui</a>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-    </div>
-  </div>
+<body>
+  <form role="form" [formGroup]="form" (ngSubmit)="onSubmit()" class="form-signin">
+<div class="text-center mb-4">
+  <!-- <img class="mb-4" src="../assets/brand/user-circle-solid.svg" alt="" width="72" height="72"> -->
+  <i class="fa fa-user bg-blue-default" style="font-size: 72px;"></i>
+  
+  <h1 class="h3 mb-3 font-weight-normal tx-blue-default">Cadastro</h1>
+  <p class="tx-blue-default">Já tem cadastro? Faça o login <a [routerLink]="['/login']">aqui</a>.</p>
 </div>
+
+<div class="form-label-group">
+  <input type="text" formControlName="name" id="name" aria-describedby="name" class="form-control custom-border" placeholder="Nome" required autofocus>
+  <label for="name">Nome</label>
+</div>
+
+<div class="form-label-group">
+  <input type="email" formControlName="email" class="form-control" id="email" aria-describedby="email" class="form-control custom-border" placeholder="E-mail" required autofocus>
+  <label for="email">E-mail</label>
+</div>
+
+<div class="form-label-group">
+  <input type="password" formControlName="password" id="password" class="form-control custom-border" placeholder="Senha" required>
+  <label for="password">Senha</label>
+</div>
+
+<div class="checkbox mb-3">
+  <label>
+    <!-- <input type="checkbox" value="remember-me"> Remember me -->
+  </label>
+</div>
+<button class="btn btn-lg btn-primary custom-btn btn-block" type="submit">Cadastrar</button>
+<p class="mt-5 mb-3 text-muted text-center"> Teste de Personalidade</p>
+</form>
+</body>

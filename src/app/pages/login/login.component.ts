@@ -9,6 +9,7 @@ import { UserService } from 'src/app/service/user.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
   private user: User = {} as User;
@@ -38,7 +39,7 @@ export class LoginComponent implements OnInit {
       this.userService.login(this.user).subscribe((token: Token) => {
         window.localStorage.setItem('token', token.token);
         const decoded: any = jwtDecode(token.token);
-        this.router.navigate(['/home', decoded.id]);
+        this.router.navigate(['/question', decoded.id]);
       });
 
       this.form.reset();

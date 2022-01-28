@@ -18,7 +18,6 @@ export class AuthService {
     const decoded: any = jwtDecode(token);
 
     if (decoded.exp === undefined) {
-      // return null;
       return new Date(0);
     }
 
