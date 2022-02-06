@@ -11,9 +11,15 @@ import { User } from '../models/user';
 export class UserService {
   constructor(private httpClient: HttpClient) {}
 
-  createAccount(request: User): Observable<User> {
+  createAccount(request: User, typeRegister: string): Observable<User> {
+    
+    let url = "";
+    
+    typeRegister == 'admin'? url = AppConstants.baseAdminSave: url = AppConstants.baseUserSave;;
+    
+
     return this.httpClient.post<User>(
-      AppConstants.baseUserSave,
+      url,
       JSON.stringify(request),
       <Object>AppConstants.httpOptions
     );

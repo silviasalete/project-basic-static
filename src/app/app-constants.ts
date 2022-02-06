@@ -35,7 +35,10 @@ export class AppConstants {
     return this.baseServe + '/user';
   }
   public static get baseUserSave(): string {
-    return this.baseUser + '/save';
+    return this.baseUser + '/save/user';
+  }
+  public static get baseAdminSave(): string {
+    return this.baseUser + '/save/admin';
   }
   public static baseUserFindById(id: number): string {
     return this.baseUser + '/' + id;

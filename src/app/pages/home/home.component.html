@@ -24,6 +24,24 @@
 
   <main role="main">
     <div class="container marketing">
+      <div class="row">
+        <div class="col-3">
+          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
+            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</a>
+            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</a>
+            <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
+          </div>
+        </div>
+        <div class="col-9">
+          <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Asperiores unde impedit porro, eligendi soluta adipisci veniam quas alias incidunt id ad quae eum optio fugit aliquid laboriosam expedita, perspiciatis hic?</div>
+            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Unde iste, laborum consectetur consequuntur optio officiis, quae aut iusto dolorem blanditiis numquam dolore. Odit maxime corporis natus obcaecati ab iure debitis.</div>
+            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa delectus cupiditate, quasi a, veniam beatae ullam vero odio veritatis commodi maxime, numquam enim odit ipsum neque repellendus temporibus distinctio eius.</div>
+            <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquam totam dolore cumque reiciendis labore, ea, placeat, ad dignissimos deleniti atque repellat quaerat quasi. Culpa voluptatibus cupiditate maxime, rem error sed.</div>
+          </div>
+        </div>
+      </div>
       <div class="row mt-3">
         <div class="col-lg-2">
         </div>
@@ -140,4 +158,14 @@
     <footer class="container">
       <!-- <p class="tx-blue-default">Proprietário do site <a href="#">Pablo Horta</a>. Desenvolvido por <a href="https://www.linkedin.com/in/silvia-gomes-b14187a7/">Silvia Gomes</a>.</p> -->
     </footer>
+    <script>
+      $('#myTab a').on('click', function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+      })
+      $('#myTab a[href="#profile"]').tab('show') // Select tab by name
+$('#myTab li:first-child a').tab('show') // Select first tab
+$('#myTab li:last-child a').tab('show') // Select last tab
+$('#myTab li:nth-child(3) a').tab('show') // Select third tab
+    </script>
   </main>

@@ -5,7 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/service/user.service';
 
@@ -16,6 +16,7 @@ import { UserService } from 'src/app/service/user.service';
 })
 export class RegisterComponent implements OnInit {
   private user: User = {} as User;
+  private typeRegister: string = "";
 
   form: FormGroup = this.formBuilder.group({
     name: this.formBuilder.control(null, Validators.required),
@@ -26,14 +27,17 @@ export class RegisterComponent implements OnInit {
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {    
+    this.activatedRoute.params.subscribe((params: Params) => this.typeRegister = params['type']);
+  }
 
   onSubmit(): void {
     if (this.form.valid) {
-      this.userService.createAccount(this.form.value).subscribe((response) => {
+      this.userService.createAccount(this.form.value,this.typeRegister).subscribe((response) => {
         this.form.reset();
         this.router.navigate(['/login', response.email]);
       });

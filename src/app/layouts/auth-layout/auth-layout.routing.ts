@@ -7,5 +7,5 @@ export const AuthLayoutRoutes: Routes = [
   { path: 'welcome', component: WelcomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'login/:email', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'register/:type', component: RegisterComponent },
 ];
