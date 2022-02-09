@@ -45,33 +45,48 @@ export class AppConstants {
   }
 
   /**
-   * Item
+   * Country
    */
-  public static get baseItem(): string {
-    return this.baseServe + '/item';
+   public static get baseCountry(): string {
+    return 'https://servicodados.ibge.gov.br/api/v1/localidades/estados';
   }
-  public static get baseItemSave(): string {
-    return this.baseItem + '/save';
+
+  /**
+   * City
+   */
+   public static baseCity(acronyms: number): string {
+    return `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${acronyms}/municipios`;
+    
   }
-  public static get baseItemUpdate(): string {
-    return this.baseItem + '/update';
+  
+  /**
+   * Company
+   */
+  public static get baseCompany(): string {
+    return this.baseServe + '/company';
   }
-  public static baseItemDelete(id: number): string {
-    return this.baseItem + '/' + id;
+  public static get baseCompanySave(): string {
+    return this.baseCompany + '/save';
   }
-  public static baseItemFindById(id: number): string {
-    return this.baseItem + '/' + id;
+  public static get baseCompanyUpdate(): string {
+    return this.baseCompany + '/update';
   }
-  public static baseItemFindAllById(id: number): string {
-    return this.baseItem + '/all/' + id;
+  public static baseCompanyDelete(id: number): string {
+    return this.baseCompany + '/' + id;
   }
-  public static baseItemPageSort(
+  public static baseCompanyFindById(id: number): string {
+    return this.baseCompany + '/' + id;
+  }
+  public static baseCompanyFindAllById(id: number): string {
+    return this.baseCompany + '/all/' + id;
+  }
+  public static baseCompanyPageSort(
     page: number,
     size: number,
     order: string
   ): string {
     return (
-      this.baseItem +
+      this.baseCompany +
       `?page=${page}&size=${size}&sort=id,${order}&sort=title,asc`
     );
   }

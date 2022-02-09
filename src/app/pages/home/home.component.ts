@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Item } from 'src/app/models/item';
+import { isEmpty } from 'rxjs/operators';
+import { City } from 'src/app/models/city';
+import { Country } from 'src/app/models/country';
+import { Company } from 'src/app/models/company';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/service/auth.service';
-import { ItemService } from 'src/app/service/item.service';
+import { CountryService } from 'src/app/service/countryservice';
+import { CompanyService } from 'src/app/service/company.service';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
@@ -13,28 +17,43 @@ import { UserService } from 'src/app/service/user.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  private item: Item = {} as Item;
-  public itemList: Item[] = [];
+  public companyList: Company[] = [];
   public user: User = {} as User;
   form: FormGroup = this.formBuilder.group({
     id: this.formBuilder.control(null, null),
-    title: this.formBuilder.control(null, Validators.required),
-    description: this.formBuilder.control(null, Validators.required),
+    nome: this.formBuilder.control(null, Validators.required),
+    country: this.formBuilder.control(null, Validators.required),
+    city: this.formBuilder.control(null, Validators.required),
   });
-  visibleForm: boolean = false;
+  public visibleForm: boolean = false;
+  public visibleCities: boolean = false;
+  public countries: Country[] = [];
+  public cities: City[] = [];
+  public listComapy: Company[] = [];
+  
+ 
+  public _currentCountry:Country = {} as Country;
+  public get currentCountry(): Country {
+    return this._currentCountry;
+  }
+  public set currentCountry(value: any) {   
+    this.listCities(value);
+  }
+
   constructor(
-    private itemService: ItemService,
     private userService: UserService,
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private countryService: CountryService,
+    private companyService: CompanyService,
   ) {}
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.findUserById(+params['id']);
-      this.list(+params['id']);
     });
+    this.listarcountrys();    
   }
 
   findUserById(id: number) {
@@ -43,51 +62,61 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  new() {
-    this.visibleForm = true;
+  listarcountrys() {
+    this.countryService.listCounties().subscribe((countries) =>{
+      this.countries = countries;
+    })
   }
-
-  update(id: number) {
-    this.findById(id);
-    this.visibleForm = true;
-  }
-
-  list(id: number) {
-    this.itemService.list(id).subscribe((data) => {
-      this.itemList = data;
-    });
+ 
+  listCities(acronyms: number) {
+    this.countryService.listCities(acronyms).subscribe((cities) =>{
+      this.cities = cities;
+    })
   }
 
   saveOrUpdate(): void {
-    if (this.form.get('id')?.value == null) {
-      const itemForm = {
-        idUser: this.user.id,
-        title: this.form.get('title')?.value,
-        description: this.form.get('description')?.value,
+    if (this.form.get('id')?.value == null) {      
+      const companyForm = {
+        nome: this.form.get('nome')?.value,
+        country: this.form.get('country')?.value,
+        city: this.form.get('city')?.value,
       };
-      this.itemService.save(itemForm).subscribe(() => this.list(this.user.id));
+      this.companyService.save(companyForm).subscribe(() => {
+        // this.listComapy(this.user.id)
+      });
     } else {
-      this.item.id = this.form.get('id')?.value;
-      this.item.title = this.form.get('title')?.value;
-      this.item.description = this.form.get('description')?.value;
+      // this.company.id = this.form.get('id')?.value;
+      // this.company.title = this.form.get('title')?.value;
+      // this.company.description = this.form.get('description')?.value;
 
-      this.itemService
-        .update(this.item)
-        .subscribe(() => this.list(this.user.id));
+      // this.companyService
+      //   .update(this.company)
+      //   .subscribe(() => this.list(this.user.id));
     }
+
+  // new() {
+  //   this.visibleForm = true;
+  // }
+
+  // update(id: number) {
+  //   this.findById(id);
+  //   this.visibleForm = true;
+  // }
+
+
   }
 
-  findById(id: number) {
-    this.itemService.findById(id).subscribe((item: Item) => {
-      this.form.controls['id'].setValue(item.id);
-      this.form.controls['title'].setValue(item.title);
-      this.form.controls['description'].setValue(item.description);
-    });
-  }
+  // findById(id: number) {
+  //   this.companyService.findById(id).subscribe((company: Company) => {
+  //     this.form.controls['id'].setValue(company.id);
+  //     this.form.controls['title'].setValue(company.title);
+  //     this.form.controls['description'].setValue(company.description);
+  //   });
+  // }
 
-  delete(id: number) {
-    this.itemService.delete(id).subscribe(() => this.list(this.user.id));
-  }
+  // delete(id: number) {
+  //   this.companyService.delete(id).subscribe(() => this.list(this.user.id));
+  // }
 
   logout() {
     this.authService.logout();
