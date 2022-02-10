@@ -44,9 +44,35 @@
                 <option *ngFor="let city of cities"  value="{{city.id}}">{{city.nome}}</option>
               </select>
             </div>
-            <input type="hidden" name="id">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <input type="hidden" name="id" formControlName="id">
+            <button type="submit" class="btn btn-primary mr-1" *ngIf="visibleButtonSave">Criar</button>
+            <button type="submit" class="btn btn-primary mr-1" *ngIf="visibleButtonUpdate">Alterar</button>
+            <button type="reset" class="btn btn-secondary">Limmpar</button> 
           </form>
+        </div>
+        <div class="col-lg-6">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Empresa</th>
+                <th scope="col">Cidade</th>
+                <th scope="col">Estado</th>
+                <th scope="col"></th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let company of companies">
+                <td>{{company.id}}</td>
+                <td>{{company.nome}}</td>
+                <td>{{company.city}}</td>
+                <td>{{company.country}}</td>
+                <td>
+                  <a href="#" class="btn btn-danger mr-1" (click)="delete(company.id)"><i class="fa fa-trash"></i></a>
+                  <a href="#" class="btn btn-secondary" (click)="update(company.id)"><i class="fa fa-edit"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <div class="col-lg-6">
           <h2>Relatório</h2>

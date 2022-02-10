@@ -15,7 +15,7 @@ export class UserService {
     
     let url = "";
     
-    typeRegister == 'admin'? url = AppConstants.baseAdminSave: url = AppConstants.baseUserSave;;
+    typeRegister == 'admin'? url = AppConstants.baseAdminSave: url = AppConstants.baseUserSave;
     
 
     return this.httpClient.post<User>(

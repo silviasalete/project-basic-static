@@ -30,9 +30,11 @@ export class HomeComponent implements OnInit {
   public countries: Country[] = [];
   public cities: City[] = [];
   public listComapy: Company[] = [];
-  
+  public visibleButtonSave: Boolean = true;
+  public visibleButtonUpdate: Boolean = false;
  
   public _currentCountry:Country = {} as Country;
+  public companies: Company[] = [];
   public get currentCountry(): Country {
     return this._currentCountry;
   }
@@ -53,7 +55,8 @@ export class HomeComponent implements OnInit {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.findUserById(+params['id']);
     });
-    this.listarcountrys();    
+    this.listarcountrys();   
+    this.listCompanies(); 
   }
 
   findUserById(id: number) {
@@ -74,49 +77,58 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  listCompanies(){
+      this.companyService.findAll().subscribe((companies) => {
+        this.companies = companies;
+      })
+  }
   saveOrUpdate(): void {
     if (this.form.get('id')?.value == null) {      
+      console.log("SALVAR");
+      
       const companyForm = {
         nome: this.form.get('nome')?.value,
         country: this.form.get('country')?.value,
         city: this.form.get('city')?.value,
       };
       this.companyService.save(companyForm).subscribe(() => {
-        // this.listComapy(this.user.id)
+      this.listCompanies(); 
       });
     } else {
-      // this.company.id = this.form.get('id')?.value;
-      // this.company.title = this.form.get('title')?.value;
-      // this.company.description = this.form.get('description')?.value;
+      console.log("ALTERAR");
 
-      // this.companyService
-      //   .update(this.company)
-      //   .subscribe(() => this.list(this.user.id));
+      const companyForm = {
+        id: this.form.get('id')?.value,
+        nome: this.form.get('nome')?.value,
+        country: this.form.get('country')?.value,
+        city: this.form.get('city')?.value,
+      };
+      this.companyService.save(companyForm).subscribe(() =>this.listCompanies());
     }
-
+  }
   // new() {
   //   this.visibleForm = true;
   // }
 
-  // update(id: number) {
-  //   this.findById(id);
-  //   this.visibleForm = true;
-  // }
-
-
+  update(id: number) {
+    this.findById(id);
   }
 
-  // findById(id: number) {
-  //   this.companyService.findById(id).subscribe((company: Company) => {
-  //     this.form.controls['id'].setValue(company.id);
-  //     this.form.controls['title'].setValue(company.title);
-  //     this.form.controls['description'].setValue(company.description);
-  //   });
-  // }
+  findById(id: number) {
+    this.companyService.findById(id).subscribe((company: Company) => {
+      this.form.controls['id'].setValue(company.id);
+      this.form.controls['nome'].setValue(company.nome);
+      this.form.controls['country'].setValue(company.country);
+      this.form.controls['city'].setValue(company.city);
+      this.visibleButtonSave = false;
+      this.visibleButtonUpdate = true;
+    });
+  }
 
-  // delete(id: number) {
-  //   this.companyService.delete(id).subscribe(() => this.list(this.user.id));
-  // }
+  delete(id: number) {
+    console.log("Apagar: ",id);    
+    this.companyService.delete(id).subscribe(() => this.listCompanies());
+  }
 
   logout() {
     this.authService.logout();

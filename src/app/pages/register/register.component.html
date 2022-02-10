@@ -23,6 +23,13 @@
   <label for="password">Senha</label>
 </div>
 
+<div class="form-group" *ngIf="visibleSelectCompany">
+  <label for="company">Empresa</label>
+  <select formControlName="company" class="form-control" id="company" name="company" >
+    <option *ngFor="let company of companies"  value="{{company.id}}">{{company.nome}}</option>
+  </select>
+</div>
+
 <div class="checkbox mb-3">
   <label>
     <!-- <input type="checkbox" value="remember-me"> Remember me -->

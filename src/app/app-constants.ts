@@ -77,9 +77,6 @@ export class AppConstants {
   public static baseCompanyFindById(id: number): string {
     return this.baseCompany + '/' + id;
   }
-  public static baseCompanyFindAllById(id: number): string {
-    return this.baseCompany + '/all/' + id;
-  }
   public static baseCompanyPageSort(
     page: number,
     size: number,
@@ -89,5 +86,15 @@ export class AppConstants {
       this.baseCompany +
       `?page=${page}&size=${size}&sort=id,${order}&sort=title,asc`
     );
+  }
+
+  /**
+   * Option
+   */
+  public static get baseOption(): string {
+    return this.baseServe + '/opcao';
+  } 
+  public static baseCompanyFindByQuestion(question: number): string {
+    return this.baseOption + '/' + question;
   }
 }

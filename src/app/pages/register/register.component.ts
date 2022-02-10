@@ -6,7 +6,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Company } from 'src/app/models/company';
 import { User } from 'src/app/models/user';
+import { CompanyService } from 'src/app/service/company.service';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
@@ -17,11 +19,14 @@ import { UserService } from 'src/app/service/user.service';
 export class RegisterComponent implements OnInit {
   private user: User = {} as User;
   private typeRegister: string = "";
+  public companies:Company[] = [];
+  public visibleSelectCompany: Boolean = false;
 
   form: FormGroup = this.formBuilder.group({
     name: this.formBuilder.control(null, Validators.required),
     email: this.formBuilder.control(null, Validators.required),
     password: this.formBuilder.control(null, Validators.required),
+    company: this.formBuilder.control(null, null),
   });
 
   constructor(
@@ -29,10 +34,21 @@ export class RegisterComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private companyService: CompanyService,
   ) {}
 
   ngOnInit() {    
-    this.activatedRoute.params.subscribe((params: Params) => this.typeRegister = params['type']);
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.typeRegister = params['type'];
+        this.visibleSelectCompany = (this.typeRegister == 'user');
+      this.listCompanies();
+    });
+  }
+
+  listCompanies() {
+    this.companyService.findAll().subscribe(companies => {
+      this.companies = companies;
+    })
   }
 
   onSubmit(): void {

@@ -10,15 +10,16 @@ import { Company } from '../models/company';
 export class CompanyService {
   constructor(private http: HttpClient) {}
 
-  // list(id: number): Observable<Company[]> {
-  //   return this.http.get<Company[]>(
-  //     AppConstants.baseCompanyFindAllById(id),
-  //     <Object>AppConstants.httpOptions
-  //   );
-  // }
+  findAll(): Observable<Company[]> {
+    return this.http.get<Company[]>(
+      AppConstants.baseCompany,
+      <Object>AppConstants.httpOptions
+    );
+  }
+  
   save(request: any): Observable<Company> {
-    console.log("request: ",request);
     let company:Company = {} as Company;
+    company.id = request.id;
     company.nome = request.nome;
     company.city = request.city;
     company.country = request.country;
@@ -28,17 +29,10 @@ export class CompanyService {
       <Object>AppConstants.httpOptions
     );
   }
-  // update(request: Company): Observable<Company> {
-  //   return this.http.put<Company>(
-  //     AppConstants.baseCompanyUpdate,
-  //     JSON.stringify(request),
-  //     <Object>AppConstants.httpOptions
-  //   );
-  // }
-  // findById(id: number): Observable<Company> {
-  //   return this.http.get<Company>(AppConstants.baseCompanyFindById(id));
-  // }
-  // delete(id: number): Observable<any> {
-  //   return this.http.delete(AppConstants.baseCompanyDelete(id));
-  // }
+  findById(id: number): Observable<Company> {
+    return this.http.get<Company>(AppConstants.baseCompanyFindById(id));
+  }
+  delete(id: number): Observable<any> {
+    return this.http.delete(AppConstants.baseCompanyDelete(id));
+  }
 }
