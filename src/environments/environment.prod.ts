@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  API: '/'
+  API: 'https://api-rest-disc.herokuapp.com/api/v1'
 };
