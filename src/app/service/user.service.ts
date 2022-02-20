@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AppConstants } from '../app-constants';
 import { Token } from '../models/token.entities';
 import { User } from '../models/user';
+import { UserView } from '../models/user-view';
 
 @Injectable({
   providedIn: 'root',
@@ -35,5 +36,9 @@ export class UserService {
 
   findUserById(id: number): Observable<User> {
     return this.httpClient.get<User>(AppConstants.baseUserFindById(id));
+  }
+  
+  findAllUser() {
+    return this.httpClient.get<UserView[]>(AppConstants.baseUser);
   }
 }

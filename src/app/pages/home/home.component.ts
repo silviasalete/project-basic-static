@@ -10,6 +10,9 @@ import { AuthService } from 'src/app/service/auth.service';
 import { CountryService } from 'src/app/service/countryservice';
 import { CompanyService } from 'src/app/service/company.service';
 import { UserService } from 'src/app/service/user.service';
+import { UserView } from 'src/app/models/user-view';
+import { Result } from 'src/app/models/result';
+import { ResultService } from 'src/app/service/result.service';
 
 @Component({
   selector: 'app-home',
@@ -19,6 +22,8 @@ import { UserService } from 'src/app/service/user.service';
 export class HomeComponent implements OnInit {
   public companyList: Company[] = [];
   public user: User = {} as User;
+  public userList: UserView[] = [];
+
   form: FormGroup = this.formBuilder.group({
     id: this.formBuilder.control(null, null),
     nome: this.formBuilder.control(null, Validators.required),
@@ -30,6 +35,7 @@ export class HomeComponent implements OnInit {
   public countries: Country[] = [];
   public cities: City[] = [];
   public listComapy: Company[] = [];
+  public listResult: Result[] = [];
   public visibleButtonSave: Boolean = true;
   public visibleButtonUpdate: Boolean = false;
  
@@ -49,6 +55,7 @@ export class HomeComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private countryService: CountryService,
     private companyService: CompanyService,
+    private resultService: ResultService,
   ) {}
 
   ngOnInit() {
@@ -57,6 +64,8 @@ export class HomeComponent implements OnInit {
     });
     this.listarcountrys();   
     this.listCompanies(); 
+    this.listAllUser();
+    this.listAllResult()
   }
 
   findUserById(id: number) {
@@ -132,5 +141,34 @@ export class HomeComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+  }
+
+  listAllUser(){
+    console.log("listAllUser:");
+    this.userService.findAllUser().subscribe(userViews => {
+      // element.roles[0].name == "admin"?"Administrador":"Usuário"
+      console.log("userViews:",userViews);
+      
+      this.userList = userViews;     
+    })
+      
+  }
+  findByIDComapany(companyId: number):string{
+    let companyName = "";
+
+    this.companyService.findById(companyId).subscribe(company => {
+      if (company) {
+        companyName = company.nome;
+      }
+    });
+    
+    return companyName;
+  }
+
+  listAllResult(){
+    this.resultService.findAll().subscribe(results => {
+      this.listResult = results;
+    })
+      
   }
 }

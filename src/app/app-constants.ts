@@ -97,4 +97,21 @@ export class AppConstants {
   public static baseCompanyFindByQuestion(question: number): string {
     return this.baseOption + '/' + question;
   }
+
+  /**
+   * Answer
+   */
+  public static get baseAnswerSave(): string{
+    return this.baseServe + '/answer/save';
+  }
+
+  /**
+   * Result
+   */
+  public static get baseResultSave(): string{
+    return this.baseServe + '/result/save';
+  }
+  public static get baseResult(): string {
+    return this.baseServe + '/result';
+  }
 }

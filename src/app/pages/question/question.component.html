@@ -10,7 +10,7 @@
           <a class="nav-link" href="../index.html">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <button type="button" class="nav-link" (click)="logout()"> Sair</button>
+          <button type="button" class="nav-link btn btn-outline-secondary" (click)="logout()"> Sair</button>
         </li>
       </ul>
     </div>
@@ -23,70 +23,66 @@
       <div class="col-lg-2">
       </div>
       <div class="col-lg-8 text-center">      
-        <!-- <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg> -->
-        <img src="../../../assets/img/pergunta-transp-3.1.png" class="bd-placeholder-img " alt="Imagens de um homem deitado com dúvidas"  width="70%">
-        <h4>Qual característica lhe define melhor ?</h4>
-        <!-- <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula?</p> -->
-        <!-- <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p> -->
-      </div>
+         <img src="../../../assets/img/pergunta-transp-3.1.png" class="bd-placeholder-img " alt="Imagens de um homem deitado com dúvidas"  width="70%">
+        <h4 *ngIf="!arrayAnswer[23].answered" >Qual característica lhe define melhor ?</h4>
+        <div *ngIf="arrayAnswer[23].answered && !visibleResult"  class="">
+          <h4>Teste finalizado!</h4>
+          <button type="button" class="btn btn-secondary mr-1" (click)="toFinish(1)">Ver resultado</button>
+          <!-- <button type="button" class="btn btn-secondary" (click)="toFinish(2)">Não</button> -->
+        </div>
+        <div *ngIf="visibleResult">
+          <h2>Resultado</h2>
+          <div class="row">
+            <div class="col-6 text-right"><button type="button" class="btn btn-info">{{executor.nome}} <span class="badge badge-light">{{executor.pontos}} %</span></button></div>
+            <div class="col-6 text-left"><button type="button" class="btn btn-secondary">{{comunicador.nome}} <span class="badge badge-light">{{comunicador.pontos}} %</span></button></div>
+            <div class="col-6 text-right  mt-1"><button type="button" class="btn btn-success">{{planejador.nome}} <span class="badge badge-light">{{planejador.pontos}} %</span></button></div>
+            <div class="col-6 text-left mt-1"><button type="button" class="btn btn-warning">{{analista.nome}} <span class="badge badge-light">{{analista.pontos}} %</span></button></div>
+          </div>
+          <button type="button" (click)="logout()">Sair</button>
+        </div>
+        <div  *ngIf="message != ''"class="row justify-content-center">
+         <div class="col-8 alert alert-warning"  role="alert">
+           {{message}}
+         </div>
+        </div>
       <div class="col-lg-2">
       </div>
     </div>
   </div>
-  <div id="myCarousel" class="carousel slide" data-interval="false" touch="true">
-    <!-- <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-    </ol> -->
-    <div class="carousel-inner">         
-      <!-- <div class="carousel-item active">
-       <div class="container">
-          <div class="carousel-caption">
-            <div class="row btn-group btn-group-toggle  ml-sm-5" data-toggle="buttons">
-              <label for="{{option.id}}" *ngFor="let option of options" (click)="responde()" class="col-12 col-sm-5 btn btn-lg btn-primary custom-btn m-1 rounded">
-                <input type="radio" name="options"  id="{{option.id}}"> {{option.nome}}
-              </label>
-            </div>
-          </div>
-        </div>
-      </div> -->
-      <div class="carousel-item active ">
-        <!-- <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><rect width="100%" height="100%" fill="#777"/></svg> -->
+  <div *ngIf="!arrayAnswer[23].answered" id="myCarousel" class="carousel slide mb-0" data-interval="false" touch="true">
+    <div class="carousel-inner"> 
+      <div class="carousel-item active">
         <div class="container">
           <div class="carousel-caption">
             <div class="row btn-group btn-group-toggle  ml-sm-5" data-toggle="buttons">
-              <label class="col-12 col-sm-5 btn btn-lg btn-primary custom-btn m-1 rounded">
-                <input type="radio" name="options" id="option1"> Apressado
-              </label>
-              <label class="col-12 col-sm-5 btn btn-lg btn-primary custom-btn m-1 rounded">
-                <input type="radio" name="options" id="option1"> Persuasivo
-              </label>
-              <label class="col-12 col-sm-5 btn btn-lg btn-primary custom-btn m-1   rounded">
-                <input type="radio" name="options" id="option1"> Metódico
-              </label>
-              <label class="col-12 col-sm-5 btn btn-lg btn-primary custom-btn m-1  rounded">
-                <input type="radio" name="options" id="option1"> Cuidadoso
+              <label for="{{ option.id }}" *ngFor="let option of optionShow" (click)="respond(option)" class="col-12 col-sm-5 btn btn-lg btn-primary custom-btn m-1 rounded">
+                <input type="radio" name="{{ option.id }}" id="{{ option.id }}">{{ option.nome }}
               </label>
             </div>
           </div>
         </div>
       </div>
+      </div>
     </div>
-    <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-      <!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>        -->
-      <!-- <img class="mb-4" src="../assets/brand/chevron-circle-left-solid.svg" alt="" width="25%"> -->
+    <a (click)="prev()" *ngIf="orderOption > 1" class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
       <i class="fa fa-chevron-circle-left  bg-blue-default"  style="font-size: 2.5em;"></i>
     </a>
-    <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-      <!-- <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span> -->       
-      <!-- <img class="mb-4" src="../assets/brand/chevron-circle-right-solid.svg" alt="" width="25%"> -->          
+    <a (click)="next()" class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">       
       <i class="fa fa-chevron-circle-right  bg-blue-default"  style="font-size: 2.5em;"></i>
     </a>
   </div>
+  <!-- PAGEABLE -->
+  <div *ngIf="!arrayAnswer[23].answered" class="row  m-0 p-0">
+    <div *ngFor="let answer of arrayAnswer" class="col" style="max-width: 63.3px;">
+      <button *ngIf="answer.answered" type="button" class="btn btn-secondary rounded-circle">{{answer.orderTask}}</button>
+      <button *ngIf="!answer.answered"type="button" class="btn btn-outline-secondary rounded-circle">{{answer.orderTask}}</button>
+    </div>
+  </div>
+  <!-- <div *ngIf="arrayAnswer[23].answered"  class="carousel slide">
+    <h2>Teste Finalizado!</h2>
+  </div> -->
   <!-- FOOTER -->
-  <footer class="container">
+  <footer class="container text-center">
     <p class="tx-blue-default">Proprietário do site <a href="#">Pablo Horta</a>. Desenvolvido por <a href="https://www.linkedin.com/in/silvia-gomes-b14187a7/">Silvia Gomes</a>.</p>
   </footer>
 </main>

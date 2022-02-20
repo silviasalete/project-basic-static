@@ -1,0 +1,11 @@
+#GET https://servicodados.ibge.gov.br/api/v1/localidades/estados
+
+POST http://localhost:8080/api/v1/user/save/admin
+Content-Type: application/json;charset=utf-8
+
+{
+  "name": "Teste",
+  "email": "test@test.com",
+  "password": "123456",
+  "company": 0
+}
