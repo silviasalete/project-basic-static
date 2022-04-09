@@ -18,9 +18,15 @@ import { UserService } from 'src/app/service/user.service';
 })
 export class RegisterComponent implements OnInit {
   private user: User = {} as User;
-  private typeRegister: string = "";
+  public typeRegister: string = "";
   public companies:Company[] = [];
   public visibleSelectCompany: Boolean = false;
+  public blockScreen: boolean = true;
+  public keyWord: string = "";
+
+  unlockForm: FormGroup = this.formBuilder.group({
+    keyWord: this.formBuilder.control(null, Validators.required)
+  });
 
   form: FormGroup = this.formBuilder.group({
     name: this.formBuilder.control(null, Validators.required),
@@ -40,7 +46,10 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {    
     this.activatedRoute.params.subscribe((params: Params) => {
       this.typeRegister = params['type'];
-        this.visibleSelectCompany = (this.typeRegister == 'user');
+        if (this.typeRegister == 'user') {
+          this.visibleSelectCompany = true;
+          this.blockScreen = false;
+        }
       this.listCompanies();
     });
   }
@@ -58,5 +67,11 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['/login', response.email]);
       });
     }
+  }
+  unLock(){
+    if (this.unlockForm.get('keyWord')?.value == 'horta-admin') {
+      this.blockScreen = false;
+    }
+    
   }
 }

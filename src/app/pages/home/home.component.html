@@ -7,15 +7,9 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="../index.html">Home <span class="sr-only">(current)</span></a>
-          </li>
+        <ul class="navbar-nav ml-auto p-2">
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/']"> Admin</a>
-          </li>
-          <li class="nav-item">
-            <button type="button" class="nav-link" (click)="logout()"> Sair</button>
+            <button type="button" class="nav-link btn bg-blue-default text-white" (click)="logout()"> Sair </button>
           </li>
         </ul>
       </div>
@@ -27,20 +21,20 @@
       <div class="row mt-5">
         
         <div class="col-12">
-          <nav>
+          <nav class="mt-5">
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <a class="nav-link active" id="nav-company-tab" data-toggle="tab" href="#nav-company" role="tab" aria-controls="nav-company" aria-selected="true">Empresas</a>
+              <a class="nav-link" id="nav-company-tab" data-toggle="tab" href="#nav-company" role="tab" aria-controls="nav-company" aria-selected="true">Empresas</a>
               <a class="nav-link" id="nav-user-tab" data-toggle="tab" href="#nav-user" role="tab" aria-controls="nav-user" aria-selected="false">Usuários</a>
-              <a class="nav-link" id="nav-response-tab" data-toggle="tab" href="#nav-response" role="tab" aria-controls="nav-response" aria-selected="false">Respostas</a>
+              <a class="nav-link active" id="nav-response-tab" data-toggle="tab" href="#nav-response" role="tab" aria-controls="nav-response" aria-selected="false">Respostas</a>
             </div>
           </nav>
-          <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-company" role="tabpanel" aria-labelledby="nav-company-tab">
+          <div class="tab-content mt-5" id="nav-tabContent">
+            <div class="tab-pane fade" id="nav-company" role="tabpanel" aria-labelledby="nav-company-tab">
              <div class="row">
                <form role="form" [formGroup]="form" (ngSubmit)="saveOrUpdate()" class="col-lg-6">                 
                <h2>Empresa</h2>
                 <div class="form-group">
-                  <label for="nome">Nova</label>
+                  <label for="nome">Nome</label>
                   <input type="text" class="form-control" id="nome" aria-describedby="nome" formControlName="nome" >
                 </div>
                 <div class="form-group">
@@ -64,7 +58,6 @@
                 <table class="table table-hover ">
                   <thead>
                     <tr>
-                      <th scope="col">#</th>
                       <th scope="col">Empresa</th>
                       <th scope="col">Cidade</th>
                       <th scope="col">Estado</th>
@@ -72,10 +65,9 @@
                   </thead>
                   <tbody>
                     <tr *ngFor="let company of companies">
-                      <td>{{company.id}}</td>
                       <td>{{company.nome}}</td>
-                      <td>{{company.city}}</td>
-                      <td>{{company.country}}</td>
+                      <td>{{company.city.nome}}</td>
+                      <td>{{company.country.nome}}</td>
                       <td>
                         <a href="#" class="btn btn-danger mr-1" (click)="delete(company.id)"><i class="fa fa-trash"></i></a>
                         <a href="#" class="btn btn-secondary" (click)="update(company.id)"><i class="fa fa-edit"></i></a>
@@ -114,7 +106,7 @@
                 </div>
               </div>
             </div>
-            <div class="tab-pane fade" id="nav-response" role="tabpanel" aria-labelledby="nav-response-tab">
+            <div class="tab-pane fade show active" id="nav-response" role="tabpanel" aria-labelledby="nav-response-tab">
               <h2>Respostas</h2>
               <div class="row mt-3">
                 <div class="col-lg-12 text-center">      
@@ -124,10 +116,26 @@
                         <th scope="col">Empresa</th>
                         <th scope="col">Nome</th>
                         <th scope="col">E-mail</th>
-                        <th scope="col">E</th>
-                        <th scope="col">C</th>
-                        <th scope="col">P</th>
-                        <th scope="col">A</th>      
+                        <th scope="col">
+                          <button type="button" class="btn bg-blue-default" data-toggle="tooltip" data-placement="top" title="Executor">
+                           E
+                          </button>
+                        </th>
+                        <th scope="col">
+                          <button type="button" class="btn bg-blue-default" data-toggle="tooltip" data-placement="top" title="Comunicador">
+                            C
+                           </button>
+                        </th>
+                        <th scope="col">
+                          <button type="button" class="btn bg-blue-default" data-toggle="tooltip" data-placement="top" title="Planejador">
+                            P
+                           </button>
+                        </th>
+                        <th scope="col">
+                          <button type="button" class="btn bg-blue-default" data-toggle="tooltip" data-placement="top" title="Analista">
+                            A
+                           </button>
+                        </th>      
                         <th scope="col"></th>               
                       </tr>
                     </thead>
@@ -159,4 +167,9 @@
     <footer class="container">
       <!-- <p class="tx-blue-default">Proprietário do site <a href="#">Pablo Horta</a>. Desenvolvido por <a href="https://www.linkedin.com/in/silvia-gomes-b14187a7/">Silvia Gomes</a>.</p> -->
     </footer>
+    <script>
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      })
+    </script>
   </main>
